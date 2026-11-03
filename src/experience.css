@@ -1165,8 +1165,12 @@ dialog.palette::backdrop {
 }
 .support-grid {
   display: grid;
-  grid-template-columns: minmax(280px, 0.8fr) 1.4fr;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
+  align-items: stretch;
+}
+.dcard.crypto {
+  grid-column: 1 / -1;
   align-items: stretch;
 }
 .dcard {
@@ -1264,9 +1268,11 @@ dialog.palette::backdrop {
   border: 1px solid #16395624;
   border-radius: 6px;
 }
-.qr svg {
+.qr svg,
+.qr img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
   display: block;
 }
 .qr-empty {

@@ -83,20 +83,33 @@ export default function Support() {
       </Reveal>
       <p className="support-note">
         <b>Please note:</b> this is an independent fan project. Donations support the website only.
-        They are voluntary, non-refundable, and <b>do not go to Lionel Messi</b>, his representatives,
-        or any club or federation.
       </p>
       <div className="support-grid">
         {upi.id && (
           <Reveal className="dcard">
             <span className="eyebrow">UPI · INDIA</span>
             <h3>Pay with any UPI app</h3>
-            <QR text={upiLink} label="UPI payment" />
+            <p>
+              Scan with Google Pay, PhonePe, Paytm or any UPI app. The payee shows as {upi.name}.
+            </p>
+            {upi.qr ? (
+              <div className="qr">
+                <img
+                  src={`${import.meta.env.BASE_URL}${upi.qr}`}
+                  alt={`UPI QR code for ${upi.id}`}
+                  width="640"
+                  height="640"
+                  loading="lazy"
+                />
+              </div>
+            ) : (
+              <QR text={upiLink} label="UPI payment" />
+            )}
             <div className="field">
               <code>{upi.id}</code>
               <Copy text={upi.id} what="UPI ID" />
             </div>
-            <small>Scan on a phone, or tap the button on mobile.</small>
+            <small>On a phone, tap the button to open your UPI app.</small>
             <div className="dcard-act">
               <a className="button button-gold" href={upiLink}>
                 Open UPI app <span>↗</span>

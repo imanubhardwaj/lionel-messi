@@ -45,7 +45,7 @@ The hero SVG is served locally and needs no third-party image request. Other pho
 - **Season by season**: an accessible bar chart of club goals across 19 seasons (Barcelona and PSG), with hover/focus detail and a table view.
 - **Ballon d'Or room**: all eight awards with podiums. **In their words**: a rotating wall of quotes. **The dossier**: essentials plus "on this day / coming up" anniversaries computed from the visitor's date.
 - **Qatar 2022 "Road to Lusail"** (all seven matches, each linked to a film), a **24-moment timeline**, **trophy room**, **36 filterable records**, a **14-photo gallery** with lightbox, and a **quiz that draws 10 questions from a pool of 26** each game.
-- **Support the tribute**: a donations section (PayPal, crypto with QR codes and copy buttons; a UPI card appears when a UPI ID is set in `src/support.js`). Donations fund hosting and upkeep only and do not go to Lionel Messi.
+- **Support the tribute**: a donations section (PayPal, crypto with QR codes and copy buttons; UPI with the payee's own QR image at `public/assets/upi-qr.png`, configured in `src/support.js`). Donations fund hosting and upkeep only and do not go to Lionel Messi.
 - Scroll progress bar, reveal animations, ticker, back-to-top, mobile navigation, reduced-motion support.
 
 Every video ID was checked against YouTube's oEmbed endpoint when added (a 401 means embedding is disabled). Gallery photos come from Wikimedia Commons with author and license shown. Records and trophy counts are completed milestones; 2026 World Cup details follow the published tournament record. Re-check video availability occasionally, since publishers can remove or restrict uploads.

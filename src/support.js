@@ -1,7 +1,8 @@
 // Donations support running this fan site (hosting and upkeep). They do not go to Lionel Messi.
-// Add a UPI ID below and the UPI card appears automatically.
+// The UPI card shows when upi.id is set. `qr` is the payee's own QR image (it decodes to the same
+// UPI ID); omit it to auto-generate one from the UPI link.
 export const support = {
-  upi: { id: "", name: "Lionel Messi World" },
+  upi: { id: "mailmahima4@okicici", name: "Mahima Sharma", qr: "assets/upi-qr.png" },
   paypal: "https://paypal.me/immanubhardwaj",
   // `label` is what the dropdown shows; order here is the dropdown order.
   crypto: [
