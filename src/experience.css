@@ -1165,13 +1165,13 @@ dialog.palette::backdrop {
 }
 .support-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   align-items: stretch;
 }
 .dcard.crypto {
-  grid-column: 1 / -1;
   align-items: stretch;
+  container-type: inline-size;
 }
 .dcard {
   background: #fff;
@@ -1332,12 +1332,9 @@ dialog.palette::backdrop {
   color: #53677b;
   max-width: 760px;
 }
-@media (max-width: 900px) {
-  .support-grid {
-    grid-template-columns: 1fr;
-  }
-}
-@media (max-width: 560px) {
+/* The crypto card stacks its QR above the address when the card itself is narrow,
+   whether that is a three-up row on a laptop or a single column on a phone. */
+@container (max-width: 520px) {
   .crypto-body {
     grid-template-columns: 1fr;
     justify-items: center;
@@ -1345,6 +1342,8 @@ dialog.palette::backdrop {
   .crypto-info {
     width: 100%;
   }
+}
+@media (max-width: 560px) {
   .dcard {
     padding: 20px 16px;
   }
