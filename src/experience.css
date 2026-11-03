@@ -1345,3 +1345,48 @@ dialog.palette::backdrop {
 .qr.pp { display: grid; place-content: center; justify-items: center; gap: 12px; padding: 0; }
 .qr.pp img { width: 84px; height: 84px; }
 .qr.pp b { font-size: 26px; letter-spacing: -0.5px; color: #003087; font-style: italic; font-weight: 800; }
+
+/* ---------- Preloader ---------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(60% 50% at 50% 40%, #e2c27a2e, transparent 70%), linear-gradient(180deg, #fff, var(--sky-soft));
+  transition: opacity 0.7s, transform 0.8s var(--ease);
+}
+.preloader.out {
+  opacity: 0;
+  transform: translateY(-4%);
+  pointer-events: none;
+}
+.pre-inner {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+}
+.pre-n {
+  font: 800 clamp(140px, 26vw, 300px) / 0.8 var(--display);
+  color: transparent;
+  -webkit-text-stroke: 2px #2377a4;
+}
+.pre-l {
+  font-size: 11px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  color: #53677b;
+  text-align: center;
+}
+.pre-bar {
+  width: 200px;
+  height: 2px;
+  background: #16395624;
+  overflow: hidden;
+}
+.pre-bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #2377a4, var(--gold-hi));
+  transform-origin: left;
+}

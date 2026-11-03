@@ -29,6 +29,7 @@ import Moments from "./components/Moments.jsx";
 import Journey from "./components/Journey.jsx";
 import DetailDialog from "./components/DetailDialog.jsx";
 import Support from "./components/Support.jsx";
+import Preloader from "./components/Preloader.jsx";
 import { anniversaries, ballonDor, gallery, records, timeline, trophies } from "./content.js";
 import { findGoal, goals } from "./videos.js";
 
@@ -159,6 +160,7 @@ export default function App() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
+      <Preloader />
       <ScrollChrome />
       <Header
         menuOpen={menuOpen}

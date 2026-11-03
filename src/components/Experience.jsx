@@ -29,11 +29,19 @@ export function TheFinal({ onWatch }) {
     return () => clearTimeout(t);
   }, [playing, active]);
 
+  // Centre the active event inside the list only. scrollIntoView would also scroll the page
+  // (and it ran on first load, jumping the visitor down to this section).
+  const firstRun = useRef(true);
   useEffect(() => {
-    const el = listRef.current?.children[active];
-    el?.scrollIntoView({
-      block: "nearest",
-      inline: "center",
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
+    }
+    const list = listRef.current;
+    const el = list?.children[active];
+    if (!el) return;
+    list.scrollTo({
+      top: el.offsetTop - (list.clientHeight - el.offsetHeight) / 2,
       behavior: prefersReducedMotion() ? "auto" : "smooth",
     });
   }, [active]);
