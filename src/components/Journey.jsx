@@ -75,7 +75,7 @@ export default function Journey() {
       <div className="section-heading">
         <div>
           <div className="eyebrow">
-            <span className="section-index">03 /</span> ONE EXTRAORDINARY
+            <span className="section-index">05 /</span> ONE EXTRAORDINARY
             JOURNEY
           </div>
           <h2>

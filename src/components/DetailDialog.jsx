@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Credits, WorldCupStory } from "./Stories.jsx";
+import { gallery } from "../content.js";
 
 function GoalStory({ goal }) {
   const [playing, setPlaying] = useState(false);
   return (
     <>
       <h2 id="dialog-title">{goal.title}</h2>
+      <p className="dialog-matchline">
+        <strong>{goal.opponent}</strong> <span>{goal.date}</span>
+      </p>
       <p className="dialog-description">{goal.description}</p>
       <div className="video-shell">
         {playing ? (
@@ -51,7 +55,24 @@ function GoalStory({ goal }) {
   );
 }
 
-export default function DetailDialog({ detail, onClose }) {
+function PhotoStory({ photo }) {
+  return (
+    <figure className="photo-story">
+      <h2 id="dialog-title" className="sr-only">
+        {photo.caption}
+      </h2>
+      <img src={photo.src} alt={photo.alt} referrerPolicy="no-referrer" />
+      <figcaption>
+        <strong>{photo.caption}</strong>
+        <a href={photo.source} target="_blank" rel="noopener noreferrer">
+          Photo: {photo.author} · {photo.license} ↗
+        </a>
+      </figcaption>
+    </figure>
+  );
+}
+
+export default function DetailDialog({ detail, onClose, onStep }) {
   const dialog = useRef(null),
     closeButton = useRef(null);
   useEffect(() => {
@@ -78,12 +99,30 @@ export default function DetailDialog({ detail, onClose }) {
     )
       onClose();
   }
+  const count =
+    detail.type === "goal"
+      ? detail.list.length
+      : detail.type === "photo"
+        ? gallery.length
+        : 0;
+  const position =
+    detail.type === "goal"
+      ? detail.list.findIndex((g) => g.id === detail.goal.id)
+      : detail.index;
+  const canStep = count > 1 && onStep;
+  function onKeyDown(event) {
+    if (!canStep || event.target.closest?.("iframe")) return;
+    if (event.key === "ArrowRight") onStep(1);
+    if (event.key === "ArrowLeft") onStep(-1);
+  }
   const eyebrow =
     detail.type === "goal"
       ? detail.goal.competition
-      : detail.type === "world-cup"
-        ? "QATAR 2022 · THE ROAD TO GLORY"
-        : "THE PEOPLE, THE NUMBERS, THE SOURCES";
+      : detail.type === "photo"
+        ? "THE GALLERY"
+        : detail.type === "world-cup"
+          ? "QATAR 2022 · THE ROAD TO GLORY"
+          : "THE PEOPLE, THE NUMBERS, THE SOURCES";
   return (
     <dialog
       ref={dialog}
@@ -94,6 +133,7 @@ export default function DetailDialog({ detail, onClose }) {
         onClose();
       }}
       onClick={closeOnBackdrop}
+      onKeyDown={onKeyDown}
     >
       <div className="dialog-top">
         <span className="eyebrow" id="dialog-eyebrow">
@@ -111,13 +151,24 @@ export default function DetailDialog({ detail, onClose }) {
       </div>
       <div id="dialog-body">
         {detail.type === "goal" ? (
-          <GoalStory goal={detail.goal} />
+          <GoalStory key={detail.goal.id} goal={detail.goal} />
+        ) : detail.type === "photo" ? (
+          <PhotoStory key={detail.index} photo={gallery[detail.index]} />
         ) : detail.type === "world-cup" ? (
           <WorldCupStory />
         ) : (
           <Credits />
         )}
       </div>
+      {canStep && (
+        <nav className="dialog-nav" aria-label="Browse">
+          <button onClick={() => onStep(-1)}>← Previous</button>
+          <span>
+            {String(position + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+          </span>
+          <button onClick={() => onStep(1)}>Next →</button>
+        </nav>
+      )}
     </dialog>
   );
 }

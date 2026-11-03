@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { goals } from "../data.js";
+import { categories, goals } from "../videos.js";
+import { Reveal } from "./Premium.jsx";
 
-function GoalCard({ goal, onSelect }) {
+const INITIAL = 9;
+
+function GoalCard({ goal, number, onSelect }) {
   const [imageFailed, setImageFailed] = useState(false);
   return (
     <button
@@ -25,7 +28,7 @@ function GoalCard({ goal, onSelect }) {
         />
         <span className="goal-club">{goal.label}</span>
         <span className="goal-index">
-          {goal.year} / {String(goals.indexOf(goal) + 1).padStart(2, "0")}
+          {goal.year} / {String(number).padStart(2, "0")}
         </span>
         <span className="goal-play" aria-hidden="true">
           ▶
@@ -42,12 +45,17 @@ function GoalCard({ goal, onSelect }) {
 
 export default function Moments({ onSelect }) {
   const [filter, setFilter] = useState("all");
+  const [expanded, setExpanded] = useState(false);
   const selected = goals.filter(
-    (goal) => filter === "all" || goal.club === filter,
+    (goal) => filter === "all" || goal.category === filter,
   );
+  const visible = expanded ? selected : selected.slice(0, INITIAL);
+  const countFor = (key) =>
+    key === "all" ? goals.length : goals.filter((g) => g.category === key).length;
+  const label = categories.find(([key]) => key === filter)[1];
   return (
     <section className="section moments-section" id="moments">
-      <div className="section-heading">
+      <Reveal className="section-heading">
         <div>
           <div className="eyebrow">
             <span className="section-index">01 /</span> PURE, UNFILTERED GENIUS
@@ -59,54 +67,61 @@ export default function Moments({ onSelect }) {
           </h2>
         </div>
         <p>
-          The runs that stopped time. The left foot that
-          <br className="desktop-only" /> made the impossible feel inevitable.
+          {goals.length} films from official channels, 2007 to 2026.
+          <br className="desktop-only" /> The runs that stopped time. The left
+          foot that made the impossible feel inevitable.
         </p>
-      </div>
+      </Reveal>
       <div className="archive-toolbar">
-        <div className="filters" role="group" aria-label="Filter iconic goals">
-          {[
-            ["all", "All moments"],
-            ["barcelona", "FC Barcelona"],
-            ["argentina", "Argentina"],
-          ].map(([key, label]) => (
+        <div className="filters" role="group" aria-label="Filter films">
+          {categories.map(([key, name]) => (
             <button
               key={key}
               data-filter={key}
               className={filter === key ? "active" : undefined}
               aria-pressed={filter === key}
-              onClick={() => setFilter(key)}
+              onClick={() => {
+                setFilter(key);
+                setExpanded(false);
+              }}
             >
-              {label}
-              {key === "all" && <span>04</span>}
+              {name}
+              <span>{String(countFor(key)).padStart(2, "0")}</span>
             </button>
           ))}
         </div>
         <span className="archive-count" id="archive-count" aria-live="polite">
-          {String(selected.length).padStart(2, "0")} SELECTED MOMENTS
+          {String(selected.length).padStart(2, "0")} FILMS
         </span>
       </div>
       <div className="goals-grid" id="goals-grid">
-        {selected.map((goal) => (
-          <GoalCard key={goal.id} goal={goal} onSelect={onSelect} />
+        {visible.map((goal) => (
+          <GoalCard
+            key={goal.id}
+            goal={goal}
+            number={goals.indexOf(goal) + 1}
+            onSelect={(g) => onSelect(g, selected)}
+          />
         ))}
       </div>
+      {selected.length > INITIAL && (
+        <div className="show-more">
+          <button className="button button-blue" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded}>
+            {expanded ? "Show fewer films" : `Show all ${selected.length} films`}{" "}
+            <span>{expanded ? "↑" : "↓"}</span>
+          </button>
+        </div>
+      )}
       <div className="section-note">
         <span>
-          AN EDITOR’S SELECTION. EVERY GOAL, A DIFFERENT KIND OF MAGIC.
+          AN EDITOR’S SELECTION. EVERY FILM, A DIFFERENT KIND OF MAGIC.
         </span>
         <span>
           OFFICIAL CHANNELS <span>↗</span>
         </span>
       </div>
       <div className="sr-only" aria-live="polite">
-        Showing {selected.length}{" "}
-        {filter === "all"
-          ? "iconic"
-          : filter === "barcelona"
-            ? "Barcelona"
-            : "Argentina"}{" "}
-        moments
+        Showing {visible.length} of {selected.length} films in {label}
       </div>
     </section>
   );

@@ -1,61 +1,3 @@
-const goals = [
-  {
-    id: "getafe",
-    title: "The run that said everything.",
-    opponent: "Barcelona vs Getafe",
-    date: "18 APR 2007",
-    year: "2007",
-    club: "barcelona",
-    label: "FC BARCELONA",
-    competition: "COPA DEL REY · SEMI-FINAL",
-    video: "_OlTuc_t_BY",
-    channel: "FC Barcelona",
-    description:
-      "A teenager picks up the ball near halfway. A slalom through Getafe’s defence follows, all balance, close control and audacity. The finish is almost the quietest part of it. A glimpse of everything that was still to come.",
-  },
-  {
-    id: "bayern",
-    title: "One touch. A world on pause.",
-    opponent: "Barcelona vs Bayern Munich",
-    date: "06 MAY 2015",
-    year: "2015",
-    club: "barcelona",
-    label: "FC BARCELONA",
-    competition: "CHAMPIONS LEAGUE · SEMI-FINAL",
-    video: "tsBDaFllufc",
-    channel: "UEFA",
-    description:
-      "A change of direction leaves Jérôme Boateng on the turf. Then, with his right foot, Messi floats the ball over Manuel Neuer. UEFA’s 2014/15 Goal of the Season — an unforgettable moment in Barcelona’s 3–0 first-leg win.",
-  },
-  {
-    id: "athletic",
-    title: "There was no way through.",
-    opponent: "Athletic Club vs Barcelona",
-    date: "30 MAY 2015",
-    year: "2015",
-    club: "barcelona",
-    label: "FC BARCELONA",
-    competition: "COPA DEL REY · FINAL",
-    video: "0MzhNaejzvE",
-    channel: "FC Barcelona",
-    description:
-      "Pinned near the right touchline, surrounded by red-and-white shirts, Messi invents a route to goal. His solo opener sets Barcelona on their way to a 3–1 win in the Copa del Rey final. This official video contains the full match.",
-  },
-  {
-    id: "mexico",
-    title: "When a nation needed him.",
-    opponent: "Argentina vs Mexico",
-    date: "26 NOV 2022",
-    year: "2022",
-    club: "argentina",
-    label: "ARGENTINA",
-    competition: "WORLD CUP · GROUP STAGE",
-    video: "xhDzgSY9oCE",
-    channel: "FIFA",
-    description:
-      "After defeat in their opening match, Argentina needed an answer. Messi found it from outside the box: a low, precise left-foot strike that broke the deadlock against Mexico. A breath of belief on the road to the World Cup.",
-  },
-];
 const eras = {
   rosario: {
     city: "Rosario",
@@ -162,4 +104,4 @@ const journeyPhotos = {
   },
 };
 
-export { goals, eras, journeyPhotos };
+export { eras, journeyPhotos };

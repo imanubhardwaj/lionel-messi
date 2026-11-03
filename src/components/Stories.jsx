@@ -74,11 +74,10 @@ export function Credits() {
         choose to play. Media remains the property of its respective owners.
       </p>
       <p>
-        Hero illustration: supplied by the site owner and converted locally into
-        an SVG made of coloured vector paths. The illustration is hosted with
-        the site. Trophy photograph:{" "}
+        Hero illustration: artwork supplied by the site owner, hosted with the
+        site. Trophy photograph:{" "}
         <a
-          href="https://commons.wikimedia.org/wiki/File:FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_02.jpg"
+          href="https://commons.wikimedia.org/wiki/File:FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_04.jpg"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -163,6 +162,25 @@ export function Credits() {
         Any image adaptations retain their respective Creative Commons license.
         Rosario’s photo is from 2012; the other captions show the actual photo
         dates.
+      </p>
+      <p>
+        Gallery photographs are credited on each image: Ank Kumar (CC BY-SA 4.0),
+        Francisco Javier Gutierrez Zuñiga (CC BY-SA 2.0), Voltmetro (CC BY-SA
+        4.0) and Bryan Berlin (CC BY-SA 4.0), all via Wikimedia Commons. Images
+        are served from Wikimedia and are not adapted.
+      </p>
+      <p>
+        Films are embedded from the publishers named on each card, including FIFA,
+        UEFA, FC Barcelona, Copa América, the Olympic Games, Major League Soccer,
+        Ligue 1, ESPN Throwback and CBS Sports Golazo. Each video was confirmed
+        embeddable when this page was built; availability can change at the
+        publisher’s discretion.
+      </p>
+      <p>
+        The 2026 World Cup details (Argentina’s run to the final, a 1–0 defeat to
+        Spain after extra time on 19 July 2026, and Messi’s hat-trick against
+        Algeria) follow the published tournament record. Trophy and record
+        counts are those widely reported for completed competitions.
       </p>
       <p>Typography: Barlow Condensed and DM Sans via Google Fonts.</p>
     </>

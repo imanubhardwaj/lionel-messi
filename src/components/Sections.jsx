@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { heroStats } from "../content.js";
+import { Counter } from "./Premium.jsx";
 export function Header({ menuOpen, onMenuToggle, onNavigate }) {
   return (
     <header className="site-header">
@@ -16,12 +18,15 @@ export function Header({ menuOpen, onMenuToggle, onNavigate }) {
         className={menuOpen ? "open" : undefined}
         onClick={onNavigate}
       >
-        <a href="#moments">The magic</a>
-        <a href="#records">The records</a>
-        <a href="#journey">The journey</a>
-        <a href="#world-cup">The dream</a>
+        <a href="#moments">Films</a>
+        <a href="#road">Qatar 2022</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#trophies">Trophies</a>
+        <a href="#record-book">Records</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#quiz">Quiz</a>
       </nav>
-      <a className="header-link" href="#world-cup">
+      <a className="header-link" href="#road">
         WORLD CHAMPION <span>★ ★ ★</span>
       </a>
       <button
@@ -58,7 +63,7 @@ export function Hero() {
         </p>
         <div className="hero-actions">
           <a className="button button-blue" href="#moments">
-            <span className="play-small">▶</span> Witness the magic{" "}
+            <span className="play-small">▶</span> Watch the films{" "}
             <span>↗</span>
           </a>
           <a className="text-link" href="#journey">
@@ -79,8 +84,8 @@ export function Hero() {
           onError={() => setImageError(true)}
           onLoad={() => setImageError(false)}
           id="hero-photo"
-          src={`${import.meta.env.BASE_URL}assets/messi-world-cup.svg`}
-          alt="Vector illustration of Lionel Messi smiling as he holds the World Cup trophy"
+          src={`${import.meta.env.BASE_URL}assets/messi-world-cup.jpg`}
+          alt="Illustration of Lionel Messi smiling as he holds the World Cup trophy"
           width="1199"
           height="1312"
           fetchPriority="high"
@@ -97,7 +102,7 @@ export function Hero() {
         </p>
       </figure>
       <div className="hero-bottom">
-        <a href="#records">
+        <a href="#moments">
           <span className="scroll-line"></span> SCROLL INTO GREATNESS
         </a>
         <span>THE BEAUTIFUL GAME. THE BEAUTIFUL EXCEPTION.</span>
@@ -123,30 +128,15 @@ export function Numbers() {
           Beyond numbers.
         </p>
       </div>
-      <a href="#record-book">
-        <strong>
-          08<span>★</span>
-        </strong>
-        <span>BALLON D’OR AWARDS</span>
-      </a>
-      <a href="#record-book">
-        <strong>
-          91<span>↗</span>
-        </strong>
-        <span>GOALS IN A YEAR · 2012</span>
-      </a>
-      <a href="#record-book">
-        <strong>
-          672<span>↗</span>
-        </strong>
-        <span>GOALS FOR FC BARCELONA</span>
-      </a>
-      <a href="#world-cup">
-        <strong>
-          01<span>♜</span>
-        </strong>
-        <span>WORLD CUP · QATAR 2022</span>
-      </a>
+      {heroStats.map((stat) => (
+        <a key={stat.label} href={stat.href}>
+          <strong>
+            <Counter value={stat.value} pad={stat.value < 10 ? 2 : 0} />
+            <span>{stat.suffix}</span>
+          </strong>
+          <span>{stat.label}</span>
+        </a>
+      ))}
     </section>
   );
 }
@@ -159,10 +149,10 @@ export function WorldCup({ onOpen }) {
           onError={() => setImageError(true)}
           onLoad={() => setImageError(false)}
           id="trophy-photo"
-          src="https://upload.wikimedia.org/wikipedia/commons/6/65/FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_02.jpg"
-          width="2009"
-          height="3976"
-          alt="Photograph of the FIFA World Cup trophy on display at the FIFA Museum in Zürich"
+          src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_04.jpg/1280px-FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_04.jpg"
+          width="1280"
+          height="2070"
+          alt="Close-up photograph of the gold FIFA World Cup trophy on display at the FIFA World Football Museum in Zürich"
           loading="lazy"
           decoding="async"
           referrerPolicy="no-referrer"
@@ -174,7 +164,7 @@ export function WorldCup({ onOpen }) {
           <strong>THE WORLD’S GREATEST PRIZE.</strong>
           <span>FIFA WORLD CUP TROPHY · MUSEUM PHOTOGRAPH</span>
           <a
-            href="https://commons.wikimedia.org/wiki/File:FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_02.jpg"
+            href="https://commons.wikimedia.org/wiki/File:FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_04.jpg"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -184,7 +174,7 @@ export function WorldCup({ onOpen }) {
         <p className="photo-error" id="trophy-error" hidden={!imageError}>
           Photo unavailable.{" "}
           <a
-            href="https://commons.wikimedia.org/wiki/File:FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_02.jpg"
+            href="https://commons.wikimedia.org/wiki/File:FIFA_World_Cup_Trophy_%28Ank_Kumar%2C_Infosys_Limited%29_04.jpg"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -206,7 +196,7 @@ export function WorldCup({ onOpen }) {
           </em>
         </h2>
         <p>
-          Five World Cups. A lifetime of belief. On a December night in Lusail,
+          A lifetime of belief. On a December night in Lusail,
           the little boy from Rosario finally held his biggest dream in his
           hands.
         </p>
@@ -227,83 +217,6 @@ export function WorldCup({ onOpen }) {
         <button className="text-link gold" id="open-world-cup" onClick={onOpen}>
           Relive the road to glory <span>↗</span>
         </button>
-      </div>
-    </section>
-  );
-}
-export function Records() {
-  return (
-    <section className="section record-section" id="record-book">
-      <div className="section-heading">
-        <div>
-          <div className="eyebrow">
-            <span className="section-index">04 /</span> IN A LEAGUE OF HIS OWN
-          </div>
-          <h2>
-            History.
-            <br />
-            <em>Written with his left foot.</em>
-          </h2>
-        </div>
-        <p>
-          A few chapters in an extraordinary record book.
-          <br />
-          Completed milestones, preserved in time.
-        </p>
-      </div>
-      <div className="record-list">
-        <a
-          href="https://www.uefa.com/news/0242-0e97e0ac1cb3-eef786ff788c-1000--messi-all-his-records/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="record-number">08</span>
-          <div>
-            <h3>Ballon d’Or awards</h3>
-            <p>2009 · 2010 · 2011 · 2012 · 2015 · 2019 · 2021 · 2023</p>
-          </div>
-          <span className="record-tag">INDIVIDUAL BRILLIANCE</span>
-          <span>↗</span>
-        </a>
-        <a
-          href="https://www.fcbarcelona.com/en/football/first-team/news/1670444/stat-of-the-day--91-messis-goals-in-a-calendar-year/amp"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="record-number">91</span>
-          <div>
-            <h3>A year like no other</h3>
-            <p>79 for Barcelona. 12 for Argentina. One astonishing 2012.</p>
-          </div>
-          <span className="record-tag">CALENDAR-YEAR GOALS</span>
-          <span>↗</span>
-        </a>
-        <a
-          href="https://www.fcbarcelona.com/en/football/first-team/news/2153661/eighth-pichichi-for-leo-messi"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="record-number">672</span>
-          <div>
-            <h3>One club. An everlasting legacy.</h3>
-            <p>Barcelona’s all-time leading scorer across 778 appearances.</p>
-          </div>
-          <span className="record-tag">FC BARCELONA · 2004–2021</span>
-          <span>↗</span>
-        </a>
-        <a
-          href="https://inside.fifa.com/news/three-more-records-for-a-goalscorer-supreme"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="record-number">06</span>
-          <div>
-            <h3>European Golden Shoes</h3>
-            <p>2010 · 2012 · 2013 · 2017 · 2018 · 2019</p>
-          </div>
-          <span className="record-tag">EUROPE’S GOLD STANDARD</span>
-          <span>↗</span>
-        </a>
       </div>
     </section>
   );

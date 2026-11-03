@@ -26,7 +26,7 @@ Photos, Google Fonts, and YouTube playback require internet access. The SVG hero
 
 The hero uses artwork supplied by the site owner. The other photographs use free Creative Commons sources, with photographer, source, and license attribution in the site’s credits.
 
-- Hero: `public/assets/messi-world-cup.svg`, a true vector tracing of the owner-supplied Messi/World Cup illustration. Uses coloured paths, with no embedded raster image. The full portrait is preserved. The prior Wikimedia video still and its credits have been removed. No third-party license is asserted for the supplied artwork.
+- Hero: `public/assets/messi-world-cup.jpg`, the owner-supplied Messi/World Cup illustration at its full source resolution (1199 × 1312, high-quality JPEG from `archive/artwork/messi-world-cup-source.png`). An earlier 80-colour vector tracing looked blotchy and is kept in `archive/artwork/messi-world-cup-traced.svg`, not served. No third-party license is asserted for the supplied artwork.
 - Trophy: [FIFA World Cup Trophy](https://commons.wikimedia.org/wiki/File:FIFA_World_Cup_Trophy_(Ank_Kumar,_Infosys_Limited)_02.jpg), Ank Kumar, CC BY-SA 4.0, 2009 × 3976. A museum photograph from Zürich in 2018, clearly identified as such; replaces the drawn SVG trophy.
 - Rosario: [National Flag Memorial](https://commons.wikimedia.org/wiki/File:Monumento_a_la_Bandera_Rosario.jpg), Micaela Muro, CC BY-SA 4.0, 4586 × 3033. Photographed in 2012; contextual city imagery, not a childhood photograph.
 - Barcelona: [Messi v AS Roma 2015](https://commons.wikimedia.org/wiki/File:Messi_v_AS_Roma_2015.jpg), Justine Magny, CC BY-SA 2.0, 4726 × 3151.
@@ -37,16 +37,21 @@ The hero SVG is served locally and needs no third-party image request. Other pho
 
 ## Features
 
-Four goal stories with filters and official click-to-load YouTube videos; seven-match Qatar 2022 journey; keyboard-accessible career tabs; sourced historical records; mobile navigation; image failure links; reduced-motion support. This is an independent fan site and does not provide live statistics.
+- **27 films** from official channels (FIFA, UEFA, FC Barcelona, Copa América, Olympic Games, MLS, Ligue 1), 2007–2026, with category filters, a "show all" toggle, and previous/next/arrow-key browsing in the player. Click-to-load, privacy-friendly YouTube embeds.
+- **Qatar 2022 "Road to Lusail"**: all seven matches with scores and notes; tap to watch.
+- **Timeline** of 16 career milestones, **trophy room** by club/country, **21 filterable records** with animated counters, a **photo gallery** with lightbox, and a **10-question quiz**.
+- Scroll progress bar, reveal animations, ticker, back-to-top, mobile navigation, reduced-motion support.
+
+Every video ID was checked against YouTube's oEmbed endpoint when added (a 401 means embedding is disabled). Gallery photos come from Wikimedia Commons with author and license shown. Records and trophy counts are completed milestones; 2026 World Cup details follow the published tournament record. Re-check video availability occasionally, since publishers can remove or restrict uploads.
 
 ## Files and validation
 
 - `index.html`: Vite entry page and metadata.
 - `src/main.jsx` and `src/App.jsx`: React entry and page composition.
 - `src/components/`: page sections, goal filters, career tabs, and accessible dialogs.
-- `src/data.js`: goal, career, and photograph data.
+- `src/videos.js`: the film library. `src/content.js`: timeline, trophies, records, gallery and quiz data. `src/data.js`: career chapters and photographs.
 - `src/styles.css` and `src/argentina.css`: original layout and Argentina theme.
-- `public/assets/`: SVG hero and favicon, copied into the build.
+- `public/assets/`: hero image and favicon, copied into the build.
 - `vite.config.js`: Vite configuration, relative production asset paths, and port 4173.
 - `dist/`: generated production output; edit the source files above, then rebuild.
 
@@ -57,7 +62,3 @@ A live Vite preview could not be started in the execution sandbox because bindin
 ## Deployment
 
 The site has not been deployed and lionelmessi.world is not connected. Source sync was blocked by DNS restrictions. Reuse the existing project in `.openai/hosting.json` if resuming Sites deployment; do not create another project. Run `npm run build` before deployment. Any static host can serve the resulting `dist/`.
-
-## Hero vector source
-
-The supplied PNG is preserved in `archive/artwork/messi-world-cup-source.png` outside the served site. `scripts/vectorize-hero.cjs` performs colour quantization, region tracing, and polygon simplification; it requires the free `sharp` Node package when regenerating the SVG. The website itself has no dependency on this tool. The raster preview in `qa/hero-vector-preview.png` is for review only and is not loaded by the website.
