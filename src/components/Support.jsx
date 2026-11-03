@@ -89,9 +89,7 @@ export default function Support() {
           <Reveal className="dcard">
             <span className="eyebrow">UPI · INDIA</span>
             <h3>Pay with any UPI app</h3>
-            <p>
-              Scan with Google Pay, PhonePe, Paytm or any UPI app. The payee shows as {upi.name}.
-            </p>
+            <p>Scan with Google Pay, PhonePe, Paytm or any UPI app.</p>
             {upi.qr ? (
               <div className="qr">
                 <img
