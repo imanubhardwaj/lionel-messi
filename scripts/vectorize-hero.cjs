@@ -15,7 +15,7 @@ function simplify(points,tolerance=.65){
 }
 (async()=>{
  const input=process.argv[2]||'archive/artwork/messi-world-cup-source.png';
- const output=process.argv[3]||'dist/assets/messi-world-cup.svg';
+ const output=process.argv[3]||'public/assets/messi-world-cup.svg';
  const png=await sharp(input).resize({width:1200,withoutEnlargement:true}).removeAlpha().median(3).blur(.7).png({palette:true,colours:80,dither:0,effort:10}).toBuffer();
  const {data,info}=await sharp(png).removeAlpha().raw().toBuffer({resolveWithObject:true});
  const w=info.width,h=info.height,n=w*h,palette=[],lookup=new Map(),labels=new Uint16Array(n);
@@ -90,6 +90,7 @@ function simplify(points,tolerance=.65){
  }
  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-labelledby="title desc"><title id="title">Messi with the World Cup</title><desc id="desc">Colour-vector tracing of the supplied illustration of Lionel Messi smiling and holding the World Cup trophy.</desc>${paths.join('')}</svg>`;
  fs.writeFileSync(output,svg);
+ fs.mkdirSync('qa', { recursive:true });
  await sharp(Buffer.from(svg)).resize(720).png().toFile('qa/hero-vector-preview.png');
  console.log(JSON.stringify({width:w,height:h,colours:palette.length,contours,bytes:Buffer.byteLength(svg),output}));
 })().catch(e=>{console.error(e);process.exit(1);});

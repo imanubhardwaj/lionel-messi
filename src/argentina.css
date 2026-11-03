@@ -1,0 +1,509 @@
+/* Argentina 2026 home kit: white, fading sky-blue stripes and navy trim. */
+:root {
+  --bg: #f8fbfd;
+  --surface: #fff;
+  --text: #11253e;
+  --muted: #53677b;
+  --blue: #2377a4;
+  --gold: #876720;
+  --line: #16395624;
+  color-scheme: light;
+}
+body {
+  background: var(--bg);
+}
+a:hover,
+button:hover {
+  color: #155c87;
+}
+::selection {
+  background: #acd9ee;
+  color: #11253e;
+}
+.site-header {
+  background: #fff;
+  border-top: 7px solid #11253e;
+  border-bottom: 1px solid var(--line);
+}
+.site-header nav {
+  color: #344d65;
+}
+.brand-mark {
+  color: #11253e;
+}
+.brand-world {
+  color: #52697f;
+}
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 4%;
+  align-items: center;
+  min-height: 680px;
+  height: auto;
+  max-height: none;
+  padding-block: 70px 120px;
+  background: #f8fbfd;
+}
+.hero-grid {
+  background:
+    linear-gradient(180deg, transparent 65%, #f8fbfd),
+    repeating-linear-gradient(
+      90deg,
+      #f8fbfd 0 16.666%,
+      transparent 16.666% 33.333%
+    ),
+    linear-gradient(180deg, #d1ebf7 0%, #aad9ed 48%, #74b8da 100%);
+  opacity: 1;
+}
+.hero-copy {
+  width: 100%;
+  padding-top: 0;
+}
+h1 {
+  font-size: clamp(68px, 7.4vw, 126px);
+  letter-spacing: -2px;
+}
+h1 > span {
+  color: #21759d;
+}
+.hero-subtitle {
+  color: #425d75;
+}
+.hero-actions {
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.button-blue {
+  background: #122b46;
+  color: white;
+}
+.button-blue:hover {
+  background: #236c94;
+  color: white;
+}
+.text-link {
+  border-color: #17395350;
+}
+.hero-caption small,
+.hero-bottom,
+.hero-bottom a {
+  color: #475f75;
+}
+.hero-bottom {
+  border-color: #14365130;
+}
+.hero-photograph {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  background: #fff;
+  border: 1px solid #15334c1a;
+  box-shadow: 0 20px 55px #294c6515;
+  align-self: center;
+}
+.hero-photograph > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  object-fit: contain;
+  object-position: center;
+}
+.photo-shade {
+  display: none;
+}
+.photo-dateline {
+  position: static;
+  padding: 16px 22px;
+  color: #496075;
+  text-shadow: none;
+  font-size: 7px;
+  border-bottom: 1px solid var(--line);
+}
+.hero-photograph figcaption {
+  position: static;
+  padding: 22px;
+  gap: 10px;
+}
+.hero-photograph figcaption strong {
+  color: #11253e;
+  font-size: 28px;
+}
+.hero-photograph figcaption > span:not(.photo-stars),
+.hero-photograph figcaption a {
+  color: #53677b;
+}
+.photo-stars {
+  color: #94732a;
+}
+.photo-error {
+  z-index: 3;
+  padding: 18px;
+  background: #fff;
+  color: #20394e;
+}
+.numbers-band {
+  background: #f8fbfd;
+}
+.numbers-band > a > strong {
+  color: #13334f;
+}
+.section-index,
+.archive-count,
+.section-note,
+.filters button > span {
+  color: #53677b;
+}
+.moments-section {
+  background: #fff;
+}
+.goal-image {
+  background: #11253e;
+}
+.goal-image img {
+  filter: none;
+}
+.goal-club,
+.goal-play {
+  color: #fff;
+}
+.goal-card:hover .goal-play {
+  background: #bce5f5;
+  color: #10273d;
+}
+.goal-meta,
+.goal-meta > span:last-child {
+  color: #53677b;
+}
+.world-cup-section {
+  --text: #f8fbfd;
+  --blue: #b9e1f2;
+  --gold: #ddbd77;
+  --muted: #bacbd8;
+  --line: #c9e6f329;
+  background: #102a44;
+  color: #f8fbfd;
+  border-block: 5px solid #a8d8ed;
+}
+.world-cup-art {
+  margin: 0;
+  min-height: 0;
+  padding: 48px 8% 35px;
+  background: none;
+}
+.world-cup-art > img {
+  display: block;
+  width: 100%;
+  height: 430px;
+  object-fit: contain;
+}
+.world-cup-art figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px;
+  text-align: center;
+  margin-top: 24px;
+}
+.world-cup-art figcaption strong {
+  font: 500 25px var(--display);
+  letter-spacing: 0.5px;
+}
+.world-cup-art figcaption > span:not(.wc-stars) {
+  color: #bacbd8;
+  font-size: 7px;
+  letter-spacing: 1.3px;
+}
+.world-cup-art figcaption a {
+  color: #bfd4e3;
+  font-size: 8px;
+  line-height: 1.6;
+}
+.world-cup-art .wc-stars {
+  font-size: 12px;
+  letter-spacing: 10px;
+}
+.world-cup-copy > p {
+  color: #bacbd8;
+}
+.world-cup-copy .section-index {
+  color: #9cb5c8;
+}
+.world-cup-copy a:hover,
+.world-cup-copy button:hover {
+  color: #fff;
+}
+.final-score > small {
+  color: #c8d8e4;
+}
+.final-score {
+  border-color: #d2b57355;
+}
+.journey-section {
+  background: #edf6fb;
+}
+.journey-tabs button {
+  color: #526a7e;
+}
+.journey-tabs button[aria-selected="true"] {
+  color: #155c87;
+}
+.era-content {
+  align-items: center;
+}
+.era-visual {
+  height: 360px;
+  margin: 0;
+  display: block;
+  border: none;
+  background: #102a44;
+  box-shadow: 0 12px 35px #1d425418;
+}
+.era-visual > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.era-barcelona > img {
+  object-fit: cover;
+}
+.era-visual figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 48px 22px 19px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: #fff;
+  background: linear-gradient(transparent, #08182be8);
+}
+.era-visual figcaption > span {
+  font-size: 9px;
+  letter-spacing: 1.6px;
+}
+.era-visual figcaption > a {
+  width: fit-content;
+  font-size: 8px;
+  color: #e2edf4;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.journey-image-error {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  padding: 16px;
+  background: #fff;
+  color: #11253e;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.journey-image-error a {
+  text-decoration: underline;
+}
+.era-source {
+  color: #1a648e;
+  border-color: #1a648e55;
+}
+.record-section {
+  padding-top: 80px;
+  background: #fff;
+}
+.record-list > a:hover {
+  background: #edf6fb;
+}
+.record-tag {
+  color: #526a7e;
+}
+.closing {
+  background:
+    linear-gradient(180deg, #ffffff90, #ffffff30),
+    repeating-linear-gradient(90deg, #f8fbfd 0 16.666%, #9ed3ec 16.666% 33.333%);
+}
+.closing > p {
+  color: #11253e;
+}
+.closing p > span {
+  color: #1234500a;
+}
+.closing em {
+  color: #266a91;
+}
+footer {
+  background: #fff;
+  border-bottom: 7px solid #11253e;
+}
+footer p,
+.footer-domain {
+  color: #53677b;
+}
+dialog {
+  background: #fff;
+  border-color: #adc4d4;
+  color: #11253e;
+  box-shadow: 0 30px 100px #102a4466;
+}
+dialog::backdrop {
+  background: #0b223dbd;
+}
+.video-consent {
+  background: #bce5f5;
+  color: #11253e;
+}
+#dialog-body p a {
+  color: #17618a;
+  text-decoration: underline;
+}
+@media (min-width: 1600px) {
+  .hero-copy {
+    padding-top: 0;
+  }
+}
+@media (max-width: 1100px) and (min-width: 761px) {
+  .hero {
+    min-height: 650px;
+    gap: 3%;
+    padding-block: 60px 110px;
+  }
+  .hero-photograph {
+    inset: auto;
+  }
+  .hero-copy {
+    padding-top: 0;
+  }
+  h1 {
+    font-size: 7.3vw;
+  }
+  .hero-copy > .eyebrow {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  .hero-photograph figcaption {
+    padding: 18px;
+  }
+  .hero-photograph figcaption strong {
+    font-size: 24px;
+  }
+}
+@media (max-width: 760px) {
+  .site-header nav {
+    background: #fff;
+  }
+  .hero {
+    display: flex;
+    min-height: 0;
+    gap: 0;
+    padding: 42px 6% 85px;
+  }
+  .hero-copy {
+    padding-top: 0;
+  }
+  h1 {
+    font-size: clamp(64px, 14.4vw, 108px);
+    letter-spacing: -1px;
+  }
+  .hero-actions {
+    gap: 18px;
+  }
+  .hero-photograph {
+    position: relative;
+    inset: auto;
+    height: auto;
+    width: 100%;
+    margin: 30px 0 0;
+  }
+  .hero-photograph > img {
+    object-fit: contain;
+    object-position: center;
+  }
+  .photo-dateline {
+    padding: 13px 16px;
+    font-size: 6px;
+  }
+  .hero-photograph figcaption {
+    padding: 18px 16px;
+  }
+  .hero-photograph figcaption strong {
+    font-size: 24px;
+  }
+  .hero-photograph figcaption a {
+    font-size: 8px;
+  }
+  .world-cup-art {
+    padding: 32px 8%;
+    min-height: 0;
+  }
+  .world-cup-art > img {
+    height: 350px;
+  }
+  .world-cup-copy {
+    padding-top: 15px;
+  }
+  .era-visual {
+    height: 300px;
+  }
+  .era-visual figcaption {
+    padding-inline: 16px;
+  }
+  .record-section {
+    padding-top: 60px;
+  }
+}
+
+/* Supplied artwork traced into a local SVG; keep the complete portrait visible. */
+.hero {
+  padding-top: 38px;
+}
+.hero-illustration {
+  width: min(100%, 560px);
+  justify-self: center;
+  overflow: hidden;
+  background: #14273c;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: 0 24px 55px #173b5b26;
+}
+.hero-illustration > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1199/1312;
+  object-fit: contain;
+  object-position: center;
+}
+.hero-illustration figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 48px 25px 23px;
+  background: linear-gradient(transparent, #071c34e8);
+  gap: 8px;
+  pointer-events: none;
+}
+.hero-illustration figcaption strong {
+  color: #fff;
+  font-size: 27px;
+}
+.hero-illustration .photo-stars {
+  color: #edcd88;
+}
+@media (max-width: 760px) {
+  .hero {
+    padding-top: 42px;
+  }
+  .hero-illustration {
+    margin-top: 30px;
+  }
+  .hero-illustration figcaption {
+    padding: 38px 18px 19px;
+  }
+  .hero-illustration figcaption strong {
+    font-size: 23px;
+  }
+}
