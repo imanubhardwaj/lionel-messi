@@ -77,13 +77,13 @@
     </script>
     <style>
       /* Pre-render content for crawlers and screen readers: kept off-screen so it never flashes before the app mounts. */
-      #root > main, #root > noscript { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      #root > .seo-fallback, #root > noscript { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
       html { background: #f8fbfd; }
     </style>
   </head>
   <body>
     <div id="root">
-      <main>
+      <div class="seo-fallback">
         <h1>Lionel Messi World: Beyond Greatness</h1>
         <p>
           An independent fan tribute to Lionel Messi: eight Ballon d’Or awards, career goals season by
@@ -104,7 +104,7 @@
             <li><a href="#quiz">The Lionel Messi quiz</a></li>
           </ul>
         </nav>
-      </main>
+      </div>
       <noscript>Lionel Messi World is an interactive site and needs JavaScript to show the films, charts and quiz.</noscript>
     </div>
     <script type="module" src="/src/main.jsx"></script>
