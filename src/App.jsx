@@ -28,6 +28,7 @@ import {
 import Moments from "./components/Moments.jsx";
 import Journey from "./components/Journey.jsx";
 import DetailDialog from "./components/DetailDialog.jsx";
+import Support from "./components/Support.jsx";
 import { anniversaries, ballonDor, gallery, records, timeline, trophies } from "./content.js";
 import { findGoal, goals } from "./videos.js";
 
@@ -45,6 +46,7 @@ const sections = [
   ["#voices", "In their words", "What they said about him"],
   ["#dossier", "The dossier", "Facts and anniversaries"],
   ["#quiz", "The quiz", "Ten questions, drawn at random"],
+  ["#support", "Support the tribute", "Tips for hosting and upkeep: PayPal or crypto"],
 ];
 
 function readFilmHash() {
@@ -182,6 +184,7 @@ export default function App() {
         <Quotes />
         <Dossier onWatch={openGoal} />
         <Quiz />
+        <Support />
         <Closing />
       </main>
       <Footer onOpenCredits={() => setDetail({ type: "credits" })} />

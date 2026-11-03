@@ -1142,3 +1142,204 @@ dialog.palette::backdrop {
     animation: none;
   }
 }
+
+/* ---------- Support the tribute ---------- */
+.support-section {
+  background:
+    radial-gradient(70% 60% at 20% 0%, #e2c27a2e 0%, transparent 60%),
+    linear-gradient(180deg, #fff, var(--sky-soft));
+  border-top: 1px solid var(--line);
+}
+.support-section .section-heading .eyebrow {
+  color: var(--gold-lo);
+}
+.support-note {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #2f4559;
+  border-left: 3px solid var(--gold-hi);
+  background: #fff;
+  padding: 16px 20px;
+  max-width: 760px;
+  margin-bottom: 36px;
+}
+.support-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) 1.4fr;
+  gap: 20px;
+  align-items: stretch;
+}
+.dcard {
+  background: #fff;
+  border: 1px solid #16395624;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+  transition:
+    border-color 0.3s,
+    transform 0.4s var(--ease),
+    box-shadow 0.3s;
+}
+.dcard:hover {
+  border-color: var(--gold-hi);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px #2377a41a;
+}
+.dcard > .eyebrow {
+  color: #2377a4;
+}
+.dcard h3 {
+  font: 600 28px/1.1 var(--display);
+  color: var(--navy);
+}
+.dcard p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4c647a;
+}
+.dcard small {
+  font-size: 12px;
+  color: #53677b;
+  line-height: 1.6;
+}
+.dcard .button {
+  margin-top: 0;
+}
+.dcard-act {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: auto;
+}
+.field {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  background: #f8fbfd;
+  border: 1px solid #16395624;
+  transition: border-color 0.2s;
+}
+.field:hover,
+.field:focus-within {
+  border-color: #2377a4;
+}
+.field code {
+  flex: 1;
+  min-width: 0;
+  align-self: center;
+  padding: 14px 16px;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  color: var(--navy);
+  overflow-wrap: anywhere;
+}
+.field code.addr {
+  word-break: break-all;
+  line-height: 1.5;
+}
+.copy {
+  border-left: 1px solid #16395624;
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 92px;
+  color: var(--navy);
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.copy:hover {
+  background: var(--navy);
+  color: #fff;
+}
+.qr {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #16395624;
+  border-radius: 6px;
+}
+.qr svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.qr-empty {
+  background: var(--sky-soft);
+}
+.crypto-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 26px;
+  width: 100%;
+  align-items: start;
+}
+.crypto-info {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+.chain {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #53677b;
+}
+.chain select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  background: #f8fbfd url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%232377a4' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 16px center;
+  border: 1px solid #16395624;
+  color: var(--navy);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  padding: 14px 44px 14px 16px;
+  border-radius: 0;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.chain select:hover,
+.chain select:focus {
+  border-color: #2377a4;
+  outline: none;
+}
+.chain select:focus-visible {
+  outline: 3px solid #2377a4;
+  outline-offset: 3px;
+}
+.support-foot {
+  margin-top: 26px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #53677b;
+  max-width: 760px;
+}
+@media (max-width: 900px) {
+  .support-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .crypto-body {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .crypto-info {
+    width: 100%;
+  }
+  .dcard {
+    padding: 20px 16px;
+  }
+}

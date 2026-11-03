@@ -27,6 +27,7 @@ export function Header({ menuOpen, onMenuToggle, onNavigate, onSearch }) {
         <a href="#record-book">Records</a>
         <a href="#gallery">Gallery</a>
         <a href="#quiz">Quiz</a>
+        <a href="#support">Support</a>
       </nav>
       <button className="header-search" onClick={onSearch} aria-label="Search the archive">
         <span aria-hidden="true">⌕</span> Search <kbd>⌘K</kbd>
