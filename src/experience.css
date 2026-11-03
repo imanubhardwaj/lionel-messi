@@ -1165,13 +1165,9 @@ dialog.palette::backdrop {
 }
 .support-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 20px;
   align-items: stretch;
-}
-.dcard.crypto {
-  align-items: stretch;
-  container-type: inline-size;
 }
 .dcard {
   background: #fff;
@@ -1180,7 +1176,7 @@ dialog.palette::backdrop {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  align-items: flex-start;
+  align-items: stretch;
   transition:
     border-color 0.3s,
     transform 0.4s var(--ease),
@@ -1278,19 +1274,6 @@ dialog.palette::backdrop {
 .qr-empty {
   background: var(--sky-soft);
 }
-.crypto-body {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 26px;
-  width: 100%;
-  align-items: start;
-}
-.crypto-info {
-  display: grid;
-  gap: 14px;
-  align-content: start;
-  min-width: 0;
-}
 .chain {
   display: grid;
   gap: 6px;
@@ -1332,19 +1315,33 @@ dialog.palette::backdrop {
   color: #53677b;
   max-width: 760px;
 }
-/* The crypto card stacks its QR above the address when the card itself is narrow,
-   whether that is a three-up row on a laptop or a single column on a phone. */
-@container (max-width: 520px) {
-  .crypto-body {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-  .crypto-info {
-    width: 100%;
-  }
-}
 @media (max-width: 560px) {
   .dcard {
     padding: 20px 16px;
   }
 }
+
+/* Uniform card anatomy: label, heading, intro slot, visual, field, note, action. */
+.dcard > .eyebrow { line-height: 1; }
+.dhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 40px; }
+.dhead h3 { margin: 0; line-height: 1; white-space: nowrap; }
+.dhead .chain { display: block; width: auto; flex: 0 1 150px; min-width: 110px; }
+.dhead .chain select { height: 40px; padding: 0 36px 0 12px; font-size: 14px; background-position: right 12px center; }
+.dslot { height: 72px; display: flex; align-items: flex-start; }
+.dvisual { display: flex; }
+.dfield { display: grid; gap: 6px; }
+.flabel { display: block; font-size: 11px; letter-spacing: 2px; font-weight: 700; color: #53677b; text-transform: uppercase; }
+.field, .field.open { min-height: 56px; }
+.field .code, .field code {
+  flex: 1; min-width: 0; align-self: center; padding: 12px;
+  font: 11.5px/1.5 ui-monospace, Menlo, monospace; color: var(--navy); text-align: left;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: normal;
+}
+.field button.code { cursor: pointer; background: none; border: 0; }
+.field button.code:hover { color: #2377a4; }
+.field.open .code { white-space: normal; overflow-wrap: anywhere; word-break: break-all; }
+.field .copy { min-width: 72px; padding: 0 14px; }
+.dcard-act .button { width: 100%; justify-content: center; }
+.qr.pp { display: grid; place-content: center; justify-items: center; gap: 12px; padding: 0; }
+.qr.pp img { width: 84px; height: 84px; }
+.qr.pp b { font-size: 26px; letter-spacing: -0.5px; color: #003087; font-style: italic; font-weight: 800; }
