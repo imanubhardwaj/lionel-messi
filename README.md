@@ -37,9 +37,14 @@ The hero SVG is served locally and needs no third-party image request. Other pho
 
 ## Features
 
-- **27 films** from official channels (FIFA, UEFA, FC Barcelona, Copa América, Olympic Games, MLS, Ligue 1), 2007–2026, with category filters, a "show all" toggle, and previous/next/arrow-key browsing in the player. Click-to-load, privacy-friendly YouTube embeds.
-- **Qatar 2022 "Road to Lusail"**: all seven matches with scores and notes; tap to watch.
-- **Timeline** of 16 career milestones, **trophy room** by club/country, **21 filterable records** with animated counters, a **photo gallery** with lightbox, and a **10-question quiz**.
+- **70 films** from official channels (FIFA, UEFA, FC Barcelona, LALIGA, Copa América, Olympic Games, MLS, Ligue 1, TNT Sports, CBS Sports Golazo, Guardian Football), 2004–2026, in seven categories including **full matches**. Click-to-load, privacy-friendly YouTube embeds with previous/next/arrow-key browsing.
+- **My reel**: tap ♡ on any film to save it (localStorage only), filter to your reel, and **play it continuously**. The player listens for YouTube's "ended" event and advances when "Play next film automatically" is on.
+- **Shareable films**: every film has a `#film=<id>` deep link; opening one loads the page with that film ready to play. A share button uses the Web Share API or copies the link.
+- **Search palette** (⌘K / Ctrl+K / `/`): searches films, records, timeline moments, anniversaries, Ballon d'Or years, trophies, photos and sections.
+- **The final, minute by minute**: the 2022 final as a scrubbable timeline with a live scoreboard, the shoot-out kick by kick, and a "play the night" auto-advance.
+- **Season by season**: an accessible bar chart of club goals across 19 seasons (Barcelona and PSG), with hover/focus detail and a table view.
+- **Ballon d'Or room**: all eight awards with podiums. **In their words**: a rotating wall of quotes. **The dossier**: essentials plus "on this day / coming up" anniversaries computed from the visitor's date.
+- **Qatar 2022 "Road to Lusail"** (all seven matches, each linked to a film), a **24-moment timeline**, **trophy room**, **36 filterable records**, a **14-photo gallery** with lightbox, and a **quiz that draws 10 questions from a pool of 26** each game.
 - Scroll progress bar, reveal animations, ticker, back-to-top, mobile navigation, reduced-motion support.
 
 Every video ID was checked against YouTube's oEmbed endpoint when added (a 401 means embedding is disabled). Gallery photos come from Wikimedia Commons with author and license shown. Records and trophy counts are completed milestones; 2026 World Cup details follow the published tournament record. Re-check video availability occasionally, since publishers can remove or restrict uploads.
@@ -48,16 +53,14 @@ Every video ID was checked against YouTube's oEmbed endpoint when added (a 401 m
 
 - `index.html`: Vite entry page and metadata.
 - `src/main.jsx` and `src/App.jsx`: React entry and page composition.
-- `src/components/`: page sections, goal filters, career tabs, and accessible dialogs.
-- `src/videos.js`: the film library. `src/content.js`: timeline, trophies, records, gallery and quiz data. `src/data.js`: career chapters and photographs.
-- `src/styles.css` and `src/argentina.css`: original layout and Argentina theme.
+- `src/components/`: page sections, goal filters, career tabs, and accessible dialogs. `Experience.jsx` holds the final timeline, season chart, Ballon d'Or room, quotes, dossier and search palette.
+- `src/videos.js`: the film library. `src/content.js`: timeline, trophies, records, the final's events, seasons, Ballon d'Or podiums, quotes, dossier, anniversaries, gallery and quiz data. `src/data.js`: career chapters and photographs. `src/hooks.js`: in-view, scroll progress and the persistent "my reel" store.
+- `src/styles.css`, `src/argentina.css`, `src/premium.css` and `src/experience.css`: layout, Argentina theme, and the premium/experience layers.
 - `public/assets/`: hero image and favicon, copied into the build.
 - `vite.config.js`: Vite configuration, relative production asset paths, and port 4173.
 - `dist/`: generated production output; edit the source files above, then rebuild.
 
-`npm run build` passed. React DOM checks passed for StrictMode rendering, filters, video consent and cleanup, focus restoration, all career tabs, keyboard navigation, image error handling, World Cup and credits dialogs, Escape, mobile navigation, and anchors. The SVG was also rendered locally for visual inspection during vectorization.
-
-A live Vite preview could not be started in the execution sandbox because binding to 127.0.0.1:4173 returns EPERM. Full-page visual rendering and remote image loading remain unverified here.
+`npm run build` passed. React DOM checks (`qa/verify-react.cjs`, jsdom) cover StrictMode rendering, filters and the personal reel, deep links, the video consent flow and cleanup, focus restoration, the final's timeline and shoot-out, the seasons table view, Ballon d'Or cards, quotes, anniversaries, the search palette, the quiz, records filters, dialogs, mobile navigation, anchors and unique ids. Full-page renders at 1440px and 390px were checked with headless Chrome.
 
 ## Deployment
 

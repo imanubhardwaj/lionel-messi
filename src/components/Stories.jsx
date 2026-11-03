@@ -165,16 +165,27 @@ export function Credits() {
       </p>
       <p>
         Gallery photographs are credited on each image: Ank Kumar (CC BY-SA 4.0),
-        Francisco Javier Gutierrez Zuñiga (CC BY-SA 2.0), Voltmetro (CC BY-SA
-        4.0) and Bryan Berlin (CC BY-SA 4.0), all via Wikimedia Commons. Images
-        are served from Wikimedia and are not adapted.
+        Saadick Dhansay (CC BY 2.0), Christopher Johnson (CC BY-SA 2.0), Ludovic
+        Péron (CC BY-SA 3.0), Francisco Javier Gutierrez Zuñiga (CC BY-SA 2.0),
+        Voltmetro (CC BY-SA 4.0), Hossein Zohrevand (CC BY 4.0), Hayden Schiff
+        (CC BY 4.0), Andy Witchger (CC BY 2.0), TheSoccerBoy (CC BY 4.0) and Bryan
+        Berlin (CC BY-SA 4.0), all via Wikimedia Commons. Images are served from
+        Wikimedia and are not adapted.
       </p>
       <p>
         Films are embedded from the publishers named on each card, including FIFA,
-        UEFA, FC Barcelona, Copa América, the Olympic Games, Major League Soccer,
-        Ligue 1, ESPN Throwback and CBS Sports Golazo. Each video was confirmed
+        UEFA, FC Barcelona, LALIGA, Copa América (CONMEBOL), the Olympic Games,
+        Major League Soccer, Ligue 1, TNT Sports, ESPN Throwback, CBS Sports
+        Golazo, Guardian Football and Canal Siete. Each video was confirmed
         embeddable when this page was built; availability can change at the
         publisher’s discretion.
+      </p>
+      <p>
+        Season-by-season goal totals follow FC Barcelona’s and Ligue 1’s published
+        records. Ballon d’Or podiums follow France Football’s published results.
+        The minute-by-minute account of the 2022 final follows FIFA’s official
+        match report. Quotations are reproduced as widely reported in the press.
+        “My reel” is stored only in your browser and is never sent anywhere.
       </p>
       <p>
         The 2026 World Cup details (Argentina’s run to the final, a 1–0 defeat to

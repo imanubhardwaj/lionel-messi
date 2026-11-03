@@ -114,12 +114,12 @@ export function Timeline() {
       <Reveal className="section-heading">
         <div>
           <div className="eyebrow">
-            <span className="section-index">04 /</span> A LIFE IN FOOTBALL
+            <span className="section-index">05 /</span> A LIFE IN FOOTBALL
           </div>
           <h2>
-            Forty years.
+            One life.
             <br />
-            <em>Sixteen moments.</em>
+            <em>{timeline.length} moments.</em>
           </h2>
         </div>
         <div className="timeline-controls">
@@ -166,7 +166,7 @@ export function RoadToLusail({ onSelect }) {
       <Reveal className="section-heading">
         <div>
           <div className="eyebrow gold">
-            <span className="section-index">03 /</span> QATAR 2022 · SEVEN MATCHES
+            <span className="section-index">04 /</span> QATAR 2022 · SEVEN MATCHES
           </div>
           <h2>
             The road to
@@ -222,7 +222,7 @@ export function Trophies() {
       <Reveal className="section-heading">
         <div>
           <div className="eyebrow gold">
-            <span className="section-index">06 /</span> THE TROPHY ROOM
+            <span className="section-index">08 /</span> THE TROPHY ROOM
           </div>
           <h2>
             Everything
@@ -273,7 +273,7 @@ export function Records() {
       <Reveal className="section-heading">
         <div>
           <div className="eyebrow">
-            <span className="section-index">07 /</span> IN A LEAGUE OF HIS OWN
+            <span className="section-index">10 /</span> IN A LEAGUE OF HIS OWN
           </div>
           <h2>
             History.
@@ -342,7 +342,7 @@ export function Gallery({ onOpen }) {
       <Reveal className="section-heading">
         <div>
           <div className="eyebrow">
-            <span className="section-index">08 /</span> THE GALLERY
+            <span className="section-index">11 /</span> THE GALLERY
           </div>
           <h2>
             Frozen
@@ -375,12 +375,23 @@ export function Gallery({ onOpen }) {
   );
 }
 
+const QUIZ_SIZE = 10;
+function drawQuestions() {
+  const pool = [...quiz];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, QUIZ_SIZE);
+}
+
 export function Quiz() {
+  const [questions, setQuestions] = useState(drawQuestions);
   const [step, setStep] = useState(0);
   const [picked, setPicked] = useState(null);
   const [score, setScore] = useState(0);
-  const done = step >= quiz.length;
-  const item = quiz[step];
+  const done = step >= questions.length;
+  const item = questions[step];
   function choose(i) {
     if (picked !== null) return;
     setPicked(i);
@@ -391,12 +402,13 @@ export function Quiz() {
     setStep((s) => s + 1);
   }
   function restart() {
+    setQuestions(drawQuestions());
     setStep(0);
     setPicked(null);
     setScore(0);
   }
   const verdict =
-    score === quiz.length
+    score === questions.length
       ? "Perfect. A true Messista."
       : score >= 8
         ? "Elite. You have been paying attention."
@@ -408,7 +420,7 @@ export function Quiz() {
       <Reveal className="section-heading">
         <div>
           <div className="eyebrow gold">
-            <span className="section-index">09 /</span> PROVE YOU&rsquo;RE A FAN
+            <span className="section-index">14 /</span> PROVE YOU&rsquo;RE A FAN
           </div>
           <h2>
             The Messi
@@ -428,7 +440,7 @@ export function Quiz() {
             <small>YOUR SCORE</small>
             <strong>
               {score}
-              <span>/ {quiz.length}</span>
+              <span>/ {questions.length}</span>
             </strong>
             <p>{verdict}</p>
             <button className="button button-blue" onClick={restart}>
@@ -439,12 +451,12 @@ export function Quiz() {
           <>
             <div className="quiz-meta">
               <span>
-                QUESTION {step + 1} / {quiz.length}
+                QUESTION {step + 1} / {questions.length}
               </span>
               <span>SCORE {score}</span>
             </div>
             <div className="quiz-bar" aria-hidden="true">
-              <span style={{ width: `${(step / quiz.length) * 100}%` }} />
+              <span style={{ width: `${(step / questions.length) * 100}%` }} />
             </div>
             <h3>{item.q}</h3>
             <div className="quiz-options">
@@ -465,7 +477,7 @@ export function Quiz() {
                   <strong>{picked === item.c ? "Correct." : "Not quite."}</strong> {item.why}
                 </p>
                 <button className="text-link" onClick={next}>
-                  {step === quiz.length - 1 ? "See my score" : "Next question"} <span>→</span>
+                  {step === questions.length - 1 ? "See my score" : "Next question"} <span>→</span>
                 </button>
               </div>
             )}

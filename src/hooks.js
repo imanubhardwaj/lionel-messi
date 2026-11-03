@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
@@ -52,4 +52,43 @@ export function useScrollProgress() {
     };
   }, []);
   return { progress, past };
+}
+
+// Small persistent store, shared across components, backed by localStorage.
+// Storage can be unavailable (private mode, blocked data), so every access is guarded.
+const KEY = "lmw:reel";
+const listeners = new Set();
+let cache = null;
+function read() {
+  if (cache) return cache;
+  try {
+    const raw = localStorage.getItem(KEY);
+    cache = raw ? JSON.parse(raw).filter((x) => typeof x === "string") : [];
+  } catch {
+    cache = [];
+  }
+  return cache;
+}
+function write(next) {
+  cache = next;
+  try {
+    localStorage.setItem(KEY, JSON.stringify(next));
+  } catch {
+    // Storage unavailable: keep the in-memory copy for this visit.
+  }
+  listeners.forEach((fn) => fn(next));
+}
+
+export function useFavourites() {
+  const [favourites, setFavourites] = useState(read);
+  useEffect(() => {
+    listeners.add(setFavourites);
+    return () => listeners.delete(setFavourites);
+  }, []);
+  const toggle = useCallback((id) => {
+    const current = read();
+    write(current.includes(id) ? current.filter((x) => x !== id) : [...current, id]);
+  }, []);
+  const has = useCallback((id) => favourites.includes(id), [favourites]);
+  return { favourites, toggle, has };
 }

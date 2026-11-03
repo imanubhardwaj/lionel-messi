@@ -1,9 +1,76 @@
 import { useEffect, useRef, useState } from "react";
 import { Credits, WorldCupStory } from "./Stories.jsx";
 import { gallery } from "../content.js";
+import { useFavourites } from "../hooks.js";
 
-function GoalStory({ goal }) {
-  const [playing, setPlaying] = useState(false);
+const YT_ORIGIN = "https://www.youtube-nocookie.com";
+
+export function filmLink(id) {
+  if (typeof window === "undefined") return `#film=${id}`;
+  return `${window.location.origin}${window.location.pathname}#film=${id}`;
+}
+
+function ShareButton({ id }) {
+  const [state, setState] = useState("idle");
+  async function copy() {
+    const url = filmLink(id);
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "Lionel Messi World", url });
+        setState("shared");
+      } else {
+        await navigator.clipboard.writeText(url);
+        setState("copied");
+      }
+    } catch {
+      setState("idle");
+      return;
+    }
+    setTimeout(() => setState("idle"), 2200);
+  }
+  return (
+    <button className="dialog-share" onClick={copy} aria-live="polite">
+      {state === "copied" ? "Link copied ✓" : state === "shared" ? "Shared ✓" : "Share this film ↗"}
+    </button>
+  );
+}
+
+function GoalStory({ goal, autoplay, continuous, onToggleContinuous, onEnded }) {
+  const [playing, setPlaying] = useState(autoplay);
+  const frame = useRef(null);
+  const { has, toggle } = useFavourites();
+  const saved = has(goal.id);
+
+  // Listen for the YouTube player's "ended" state so a reel can run on its own.
+  useEffect(() => {
+    if (!playing) return;
+    function onMessage(event) {
+      if (event.origin !== YT_ORIGIN || event.source !== frame.current?.contentWindow) return;
+      let data;
+      try {
+        data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+      } catch {
+        return;
+      }
+      const ended =
+        (data?.event === "onStateChange" && data.info === 0) ||
+        (data?.event === "infoDelivery" && data.info?.playerState === 0);
+      if (ended) onEnded();
+    }
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [playing, onEnded]);
+
+  function subscribe() {
+    const win = frame.current?.contentWindow;
+    if (!win) return;
+    const send = (payload) => win.postMessage(JSON.stringify(payload), YT_ORIGIN);
+    send({ event: "listening", id: "lmw", channel: "widget" });
+    send({ event: "command", func: "addEventListener", args: ["onStateChange"], id: "lmw", channel: "widget" });
+  }
+
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  const src = `${YT_ORIGIN}/embed/${goal.video}?autoplay=1&rel=0&enablejsapi=1${origin.startsWith("http") ? `&origin=${encodeURIComponent(origin)}` : ""}`;
   return (
     <>
       <h2 id="dialog-title">{goal.title}</h2>
@@ -14,11 +81,13 @@ function GoalStory({ goal }) {
       <div className="video-shell">
         {playing ? (
           <iframe
-            src={`https://www.youtube-nocookie.com/embed/${goal.video}?autoplay=1&rel=0`}
+            ref={frame}
+            src={src}
             title={`${goal.opponent} — ${goal.channel}`}
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
             allowFullScreen
             referrerPolicy="strict-origin-when-cross-origin"
+            onLoad={subscribe}
           />
         ) : (
           <>
@@ -51,6 +120,24 @@ function GoalStory({ goal }) {
           Watch on YouTube ↗
         </a>
       </div>
+      <div className="dialog-tools">
+        <button
+          className={`dialog-save ${saved ? "on" : ""}`}
+          aria-pressed={saved}
+          onClick={() => toggle(goal.id)}
+        >
+          {saved ? "♥ In your reel" : "♡ Save to my reel"}
+        </button>
+        <ShareButton id={goal.id} />
+        <label className="dialog-continuous">
+          <input
+            type="checkbox"
+            checked={continuous}
+            onChange={(e) => onToggleContinuous(e.target.checked)}
+          />
+          Play next film automatically
+        </label>
+      </div>
     </>
   );
 }
@@ -75,6 +162,7 @@ function PhotoStory({ photo }) {
 export default function DetailDialog({ detail, onClose, onStep }) {
   const dialog = useRef(null),
     closeButton = useRef(null);
+  const [continuous, setContinuous] = useState(() => Boolean(detail.autoplay));
   useEffect(() => {
     const trigger = document.activeElement;
     const element = dialog.current;
@@ -85,7 +173,7 @@ export default function DetailDialog({ detail, onClose, onStep }) {
       // Removing the dialog also unmounts the player, stopping video playback.
       element.close();
       document.body.classList.remove("body-locked");
-      trigger?.focus();
+      trigger?.focus?.();
     };
   }, []);
   function closeOnBackdrop(event) {
@@ -111,7 +199,7 @@ export default function DetailDialog({ detail, onClose, onStep }) {
       : detail.index;
   const canStep = count > 1 && onStep;
   function onKeyDown(event) {
-    if (!canStep || event.target.closest?.("iframe")) return;
+    if (!canStep || event.target.closest?.("iframe, input, textarea")) return;
     if (event.key === "ArrowRight") onStep(1);
     if (event.key === "ArrowLeft") onStep(-1);
   }
@@ -151,7 +239,16 @@ export default function DetailDialog({ detail, onClose, onStep }) {
       </div>
       <div id="dialog-body">
         {detail.type === "goal" ? (
-          <GoalStory key={detail.goal.id} goal={detail.goal} />
+          <GoalStory
+            key={detail.goal.id}
+            goal={detail.goal}
+            autoplay={Boolean(detail.autoplay)}
+            continuous={continuous}
+            onToggleContinuous={setContinuous}
+            onEnded={() => {
+              if (continuous && canStep) onStep(1, { autoplay: true });
+            }}
+          />
         ) : detail.type === "photo" ? (
           <PhotoStory key={detail.index} photo={gallery[detail.index]} />
         ) : detail.type === "world-cup" ? (

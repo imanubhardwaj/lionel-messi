@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { heroStats } from "../content.js";
+import { heroStats, trophyTotal } from "../content.js";
+import { goals } from "../videos.js";
 import { Counter } from "./Premium.jsx";
-export function Header({ menuOpen, onMenuToggle, onNavigate }) {
+export function Header({ menuOpen, onMenuToggle, onNavigate, onSearch }) {
   return (
     <header className="site-header">
       <a className="brand" href="#home" aria-label="Lionel Messi World home">
@@ -19,16 +20,17 @@ export function Header({ menuOpen, onMenuToggle, onNavigate }) {
         onClick={onNavigate}
       >
         <a href="#moments">Films</a>
-        <a href="#road">Qatar 2022</a>
+        <a href="#the-final">The Final</a>
         <a href="#timeline">Timeline</a>
+        <a href="#seasons">Seasons</a>
         <a href="#trophies">Trophies</a>
         <a href="#record-book">Records</a>
         <a href="#gallery">Gallery</a>
         <a href="#quiz">Quiz</a>
       </nav>
-      <a className="header-link" href="#road">
-        WORLD CHAMPION <span>★ ★ ★</span>
-      </a>
+      <button className="header-search" onClick={onSearch} aria-label="Search the archive">
+        <span aria-hidden="true">⌕</span> Search <kbd>⌘K</kbd>
+      </button>
       <button
         className="menu-toggle icon-button"
         aria-label={menuOpen ? "Close navigation" : "Open navigation"}
@@ -41,7 +43,7 @@ export function Header({ menuOpen, onMenuToggle, onNavigate }) {
     </header>
   );
 }
-export function Hero() {
+export function Hero({ onSearch }) {
   const [imageError, setImageError] = useState(false);
   return (
     <section className="hero" id="home" aria-labelledby="hero-title">
@@ -66,9 +68,27 @@ export function Hero() {
             <span className="play-small">▶</span> Watch the films{" "}
             <span>↗</span>
           </a>
-          <a className="text-link" href="#journey">
-            Discover his story <span>↓</span>
+          <a className="text-link" href="#the-final">
+            Relive the final <span>↓</span>
           </a>
+        </div>
+        <div className="hero-quick" aria-label="Quick links">
+          <a href="#moments">
+            <strong>{goals.length}</strong>
+            <span>FILMS</span>
+          </a>
+          <a href="#trophies">
+            <strong>{trophyTotal}</strong>
+            <span>TROPHIES</span>
+          </a>
+          <a href="#timeline">
+            <strong>{new Date().getFullYear() - 1987}</strong>
+            <span>YEARS</span>
+          </a>
+          <button onClick={onSearch}>
+            <strong>⌕</strong>
+            <span>SEARCH</span>
+          </button>
         </div>
         <div className="hero-caption">
           <span className="argentina-flag" aria-label="Argentina"></span>
@@ -214,9 +234,14 @@ export function WorldCup({ onOpen }) {
             18 DECEMBER 2022 · FINAL · ARGENTINA WIN 4–2 ON PENALTIES
           </small>
         </div>
-        <button className="text-link gold" id="open-world-cup" onClick={onOpen}>
-          Relive the road to glory <span>↗</span>
-        </button>
+        <div className="world-cup-actions">
+          <a className="text-link gold" href="#the-final">
+            Minute by minute <span>↓</span>
+          </a>
+          <button className="text-link gold" id="open-world-cup" onClick={onOpen}>
+            Relive the road to glory <span>↗</span>
+          </button>
+        </div>
       </div>
     </section>
   );
