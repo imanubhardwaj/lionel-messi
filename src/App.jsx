@@ -1,3 +1,4 @@
+import { track } from "./analytics.js";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Header,
@@ -62,8 +63,12 @@ export default function App() {
     return film ? { type: "goal", goal: film, list: goals, deepLink: true } : null;
   });
   const [searchOpen, setSearchOpen] = useState(false);
+  useEffect(() => {
+    if (searchOpen) track("search_open");
+  }, [searchOpen]);
 
   const openGoal = useCallback((goal, list = goals, extra = {}) => {
+    track("film_open", { id: goal.id, title: goal.title });
     setDetail({ type: "goal", goal, list, ...extra });
   }, []);
 
@@ -150,6 +155,7 @@ export default function App() {
   }
 
   function pick(item) {
+    track("search_select", { kind: item.kind, title: String(item.title).slice(0, 80) });
     setSearchOpen(false);
     // Let the palette close before opening another dialog or scrolling.
     setTimeout(item.action, 30);

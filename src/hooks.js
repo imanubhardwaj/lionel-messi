@@ -1,3 +1,4 @@
+import { track } from "./analytics.js";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const prefersReducedMotion = () =>
@@ -87,6 +88,7 @@ export function useFavourites() {
   }, []);
   const toggle = useCallback((id) => {
     const current = read();
+    track("film_save", { id, saved: !current.includes(id) });
     write(current.includes(id) ? current.filter((x) => x !== id) : [...current, id]);
   }, []);
   const has = useCallback((id) => favourites.includes(id), [favourites]);

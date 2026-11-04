@@ -1,3 +1,4 @@
+import { track } from "../analytics.js";
 import { useEffect, useRef, useState } from "react";
 import { prefersReducedMotion, useInView, useScrollProgress } from "../hooks.js";
 import {
@@ -363,7 +364,10 @@ export function Gallery({ onOpen }) {
             key={p.id}
             className={`gallery-tile ${p.size === "wide" ? "wide" : ""}`}
             delay={(i % 3) * 80}
-            onClick={() => onOpen(i)}
+            onClick={() => {
+              track("photo_open", { index: i });
+              onOpen(i);
+            }}
             aria-label={`Enlarge photo: ${p.caption}`}
           >
             <img src={p.src} alt={p.alt} width={p.width} height={p.height} loading="lazy" decoding="async" referrerPolicy="no-referrer" />
@@ -395,13 +399,16 @@ export function Quiz() {
   function choose(i) {
     if (picked !== null) return;
     setPicked(i);
+    track("quiz_answer", { question: step + 1, correct: i === item.c });
     if (i === item.c) setScore((s) => s + 1);
   }
   function next() {
+    if (step === questions.length - 1) track("quiz_complete", { score, total: questions.length });
     setPicked(null);
     setStep((s) => s + 1);
   }
   function restart() {
+    track("quiz_restart");
     setQuestions(drawQuestions());
     setStep(0);
     setPicked(null);

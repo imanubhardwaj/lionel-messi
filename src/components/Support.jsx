@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { support } from "../support.js";
 import { Reveal } from "./Premium.jsx";
+import { track } from "../analytics.js";
 
 function QR({ text, label }) {
   const [svg, setSvg] = useState("");
@@ -45,6 +46,7 @@ function Copy({ text, what, primary = false, children = "Copy" }) {
       }
       t.remove();
     }
+    track("support_copy", { what, primary });
     setOk(true);
     setTimeout(() => setOk(false), 1800);
   };
@@ -89,7 +91,10 @@ function Field({ id, label, value, what }) {
             aria-expanded={open}
             aria-label={open ? `${what}: ${value}. Click to collapse` : `${what}, shortened. Click to show the full address`}
             title={open ? "Click to collapse" : value}
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => {
+              track("support_address_toggle", { what, expanded: !open });
+              setOpen((o) => !o);
+            }}
           >
             {open ? value : short(value)}
           </button>
@@ -149,7 +154,7 @@ export default function Support() {
             }
             field={<Field id="l-upi" label="UPI ID" value={upi.id} what="UPI ID" />}
             note="On a phone, tap the button to open your UPI app."
-            action={<a className="button button-gold" href={upiLink}>Open UPI app <span aria-hidden="true">↗</span></a>}
+            action={<a className="button button-gold" href={upiLink} onClick={() => track("support_upi_open")}>Open UPI app <span aria-hidden="true">↗</span></a>}
           />
         )}
         <Card
@@ -165,7 +170,7 @@ export default function Support() {
           }
           field={<Field id="l-pp" label="PayPal link" value={paypal.replace("https://", "")} what="PayPal link" />}
           note="Opens PayPal in a new tab."
-          action={<a className="button button-gold" href={paypal} target="_blank" rel="noopener noreferrer">Donate via PayPal <span aria-hidden="true">↗</span></a>}
+          action={<a className="button button-gold" href={paypal} target="_blank" rel="noopener noreferrer" onClick={() => track("support_paypal_click")}>Donate via PayPal <span aria-hidden="true">↗</span></a>}
         />
         <Card
           delay={160}
@@ -175,7 +180,10 @@ export default function Support() {
           headRight={
             <label className="chain">
               <span className="sr-only">Network</span>
-              <select id="chain-select" aria-label="Network" value={c.id} onChange={(e) => setChain(e.target.value)}>
+              <select id="chain-select" aria-label="Network" value={c.id} onChange={(e) => {
+                  track("support_network_change", { network: e.target.value });
+                  setChain(e.target.value);
+                }}>
                 {crypto.map((x) => (
                   <option key={x.id} value={x.id}>{x.label}</option>
                 ))}

@@ -1,3 +1,4 @@
+import { track } from "../analytics.js";
 import { useEffect, useRef, useState } from "react";
 import { Credits, WorldCupStory } from "./Stories.jsx";
 import { gallery } from "../content.js";
@@ -18,9 +19,11 @@ function ShareButton({ id }) {
       if (navigator.share) {
         await navigator.share({ title: "Lionel Messi World", url });
         setState("shared");
+        track("film_share", { id, method: "native" });
       } else {
         await navigator.clipboard.writeText(url);
         setState("copied");
+        track("film_share", { id, method: "copy_link" });
       }
     } catch {
       setState("idle");
@@ -99,7 +102,10 @@ function GoalStory({ goal, autoplay, continuous, onToggleContinuous, onEnded }) 
             <button
               className="video-consent"
               id="load-video"
-              onClick={() => setPlaying(true)}
+              onClick={() => {
+                track("video_play", { id: goal.id, video_id: goal.video, source: "dialog" });
+                setPlaying(true);
+              }}
             >
               ▶ Play on this page
             </button>
