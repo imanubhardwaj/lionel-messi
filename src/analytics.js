@@ -50,7 +50,7 @@ export function track(event, metadata = {}) {
   }
 }
 
-// Zero-config tracking: outbound links, in-page nav clicks, first view of each <section id>.
+// Zero-config tracking: outbound links and in-page nav clicks.
 export function initAutoTracking() {
   if (typeof window === "undefined" || window.__anInit) return;
   window.__anInit = true;
@@ -70,17 +70,4 @@ export function initAutoTracking() {
     },
     true,
   );
-  if (!("IntersectionObserver" in window)) return;
-  const seen = new Set();
-  const io = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((en) => {
-        if (!en.isIntersecting || seen.has(en.target.id)) return;
-        seen.add(en.target.id);
-        track("section_view", { section: en.target.id });
-        io.unobserve(en.target);
-      }),
-    { threshold: 0.35 },
-  );
-  setTimeout(() => document.querySelectorAll("section[id]").forEach((s) => io.observe(s)), 1500);
 }
